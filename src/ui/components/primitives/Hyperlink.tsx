@@ -1,7 +1,6 @@
 import React, { CSSProperties } from "react"
-import { useUiTheme } from "../../../client/hooks/theme"
-import {UiTheme} from "../../../contextual/appLabel/AppLabel"
-import {openLink} from "../../../util/utils"
+import {IOFn} from "../../../libs/functional-io"
+
 
 export const Hyperlink = (
   props: {
@@ -15,28 +14,20 @@ export const Hyperlink = (
     noUnderline?: boolean
     style?: CSSProperties
   }
-) => {
-  const theme = useUiTheme()
-  return(
-    <a
+) => 
+  <a
+      href={props.url}
       rel="noopener noreferrer"
       target={props.newPage === true ? "_blank" : ""}
       style={props.noUnderline === true ? 
-        {textDecoration: "none", fontSize:props.fontSize, ...props.style, cursor: "pointer", ...customStyle(theme)  } : 
-        {fontSize:props.fontSize, cursor: "pointer", ...customStyle(theme), ...props.style }
+        {textDecoration: "none", fontSize:props.fontSize, ...props.style, cursor: "pointer"} : 
+        {fontSize:props.fontSize, cursor: "pointer", ...props.style }
       } 
-      onClick={openLink(props.url)}
+      onClick={IOFn.pure(props.url)}
     >   
       {props.prefix}
       {props.bold === true ? <strong>{props.text}</strong> : props.text}
       {props.sufix}
     </a>
-  )
-}
 
-const customStyle = (theme: UiTheme) : CSSProperties => ({
-  display: "flex",
-  alignItems:"center",
-  fontFamily:"-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
-  color: theme.palette.secondary
-})
+

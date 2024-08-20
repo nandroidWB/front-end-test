@@ -1,18 +1,8 @@
-/* eslint-disable react/jsx-key */
-import React, { ReactNode } from "react"
-import { Typography } from "@mui/material"
-import { buildSxStyle, UiPrimitiveProps } from "./Types"
-import { none, None } from "@briken-io/functional-core"
-import { enumMatch } from "@briken-io/pattern-matching"
-import { UiPalette } from "../../../contextual/appLabel/AppLabel"
-import { useUiPalette } from "../../../client/hooks/theme"
-import { Sx } from "src/util//style"
-import { addFieldOrEmpty } from "src/util//functional"
-import { Optional } from "@briken-io/optional"
-import { List } from "@briken-io/list-utils"
-import { isGradient } from "./GradientIcon"
+import React from "react"
+import { SxProps, Typography } from "@mui/material"
+import {none, None, Unit} from "../../../libs/functional-core"
+import {IO} from "../../../libs/functional-io"
 
-export type UiPaletteColor = keyof UiPalette
 
 export type FontWeight =  
   | "light"       // 300
@@ -35,51 +25,49 @@ export type TypographyStyle =
   | "overline" 
  
 
-export const typographyStyleCases = (palette: UiPalette): Record<TypographyStyle, Sx> => 
+export const typographyStyleCases = (): Record<TypographyStyle, SxProps> => 
   ({
     headline1: {
       // Tamaño mobile
       fontSize: { xs: "24px", md: "30px" },
       fontFamily: "Nunito Sans",
       fontWeight: 700,
-      color: palette.gray1
     },
     headline2: {
       fontSize: "18px",
       fontFamily: "Roboto",
       fontWeight: 500,
-      color: palette.gray1
     },
     subtitle1: {
       fontSize: "15px",
       fontFamily: "Roboto",
       fontWeight: 400,
-      color: palette.gray1
+      
     
     },
     subtitle2: {
       fontSize: "13px",
       fontFamily: "Roboto",
       fontWeight: 600,
-      color: palette.gray1
+      
     },
     body1: {
       fontSize: "13px",
       fontFamily: "Roboto",
       fontWeight: 400, 
-      color: palette.gray1
+      
     },
     body2: {
       fontSize: "12px",
       fontFamily: "Roboto",
       fontWeight: 400, 
-      color: palette.gray1
+      
     },
     item: {
       fontSize: "12px",
       fontFamily: "Roboto",
       fontWeight: 300, 
-      color: palette.gray1
+      
     },
     button: {
       fontSize: "14px",
@@ -92,27 +80,24 @@ export const typographyStyleCases = (palette: UiPalette): Record<TypographyStyle
       fontSize: "10px",
       fontFamily: "Roboto",
       fontWeight: 400,
-      color: palette.gray1
+      
     },
     overline: {
       fontSize: "12px",
       fontFamily: "Roboto",
       fontWeight: 400,
       textTransform: "uppercase", 
-      color: palette.gray2
+      
     }
   })
 
-export const buildTypographyStyle = (palette: UiPalette, type?: TypographyStyle): Sx => 
-  type !== none ? 
-    enumMatch(type)<Sx>(typographyStyleCases(palette)) : {}
 
-export type TextProps = UiPrimitiveProps & {
-  sx?: Sx
+export type TextProps = {
+  onClick?: IO<Unit>
+  sx?: SxProps
   type?: TypographyStyle
   // Soporta gradientes
   color?: string
-  paletteColor?: UiPaletteColor
   backgroundColor?: string
   text?: string
   fontSize?: number | string
@@ -134,51 +119,16 @@ export const Text = React.forwardRef<HTMLSpanElement, TextProps>(
   (props, ref) => {
 
 
-    const palette = useUiPalette()
     const Wrapper = props.wrapper
-    const typographyStyle = buildTypographyStyle(palette, props.type)
     
-    const withLineBreaks = (text: Optional<string>): List<ReactNode> => {
-      if (text == undefined) return [<></>]
-      return text.split("\n").flatMap((paragraph, index) => (
-        index == 0 ? [<>{paragraph}</>] : [<br />, <>{paragraph}</>])
-      )
-    }
-
-    const color = props.color ?? Optional.map(props.paletteColor, it => palette[it])
-
-    // Para textos con gradientes
-    const colorSx: Optional<Sx> = Optional.map(
-      color, it =>
-        isGradient(it) ? 
-          ({
-            background: it,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent"
-          }) :
-          ({ color : it })
-    )
 
     const content = <Typography
       ref={ref}
-      sx={
-        Sx.combineN(
-          typographyStyle,
-          addFieldOrEmpty(props, "fontSize"),
-          addFieldOrEmpty(props, "fontWeight"),
-          addFieldOrEmpty(props, "fontStyle"),
-          addFieldOrEmpty(props, "textAlign"),
-          addFieldOrEmpty(props, "cursor"),
-          buildSxStyle(props),
-          colorSx,
-          props.sx            
-        )
-      }
+      sx={props.sx}
       align={props.align}
       onClick={props.onClick}
       noWrap={props.noWrap ?? false}
     >
-      {withLineBreaks(props.text)}
       {props.children}
     </Typography>
     

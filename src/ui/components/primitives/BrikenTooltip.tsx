@@ -1,11 +1,10 @@
 import React from "react"
 import Tippy from "@tippyjs/react"
-import { PopperPlacementType, Stack } from "@mui/material"
+import { PopperPlacementType, Stack, SxProps } from "@mui/material"
 import "tippy.js/dist/tippy.css"
 import { TextProps, Txt } from "./Text"
-import {Optional} from "@briken-io/optional"
-import {Sx} from "../../../util/style"
-//https://tippyjs.bootcss.com/
+import {Optional} from "../../../libs/optional"
+
 
 export type BrikenTooltipProps = {
   text?: string
@@ -15,7 +14,7 @@ export type BrikenTooltipProps = {
   disabled?: Optional<boolean>
   offset?: { x?: number, y?: number } 
   hide?: boolean
-  sx?: Sx
+  sx?: SxProps
   textProps?: TextProps 
   trigger?: "mouseenter focus" | "mouseenter" | "focus" | "focusin" | "click" | "manual"
 }
