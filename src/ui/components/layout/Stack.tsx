@@ -1,12 +1,12 @@
 import React from "react"
-import Stack from "@mui/material/Stack"
-import { Optional } from "@briken-io/optional"
+import {Stack} from "@mui/material"
+
 
 export type StackProps = React.ComponentProps<typeof Stack>
 export type StackDirection = StackProps["direction"]
 
 
-export const Col = React.forwardRef<Optional<HTMLDivElement>, StackProps>(
+export const Col = React.forwardRef<HTMLDivElement, StackProps>(
   (props, ref) => 
     <Stack
       ref={ref}
@@ -15,7 +15,7 @@ export const Col = React.forwardRef<Optional<HTMLDivElement>, StackProps>(
     />
 )
 
-export const Row = React.forwardRef<Optional<HTMLDivElement>, StackProps>(
+export const Row = React.forwardRef<HTMLDivElement, StackProps>(
   (props, ref) => 
     <Stack
       ref={ref}
