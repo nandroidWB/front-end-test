@@ -1,6 +1,6 @@
 import { Broker } from "../../model/Broker";
 
-const HOST = process.env.HOST_API;
+const HOST = process.env.HOST_API || '';
 
 interface BrokerData<T> {
     data: T;
@@ -49,24 +49,26 @@ export class BrokerClient {
     };
 
     // Función de registro de usuario
-    registerUser = (username: string, password: string): Promise<BrokerData<Broker> | null> => {
+    registerUser = async (username: string, password: string): Promise<BrokerData<Broker> | null> => {
         const headers = this.createHeaders();
         const body = JSON.stringify({ username, password });
 
-        return fetch(`${HOST}/register`, { method: "POST", headers, body })
+        return await fetch(`${HOST}/register`, { method: "POST", headers, body })
             .then(response => this.handleResponse<Broker>(response));
     };
 
     // Función de inicio de sesión de usuario
-    loginUser = (username: string, password: string): Promise<BrokerData<Broker> | null> => {
+    loginUser = async (username: string, password: string): Promise<BrokerData<Broker> | null> => {
         const headers = this.createHeaders();
         const body = JSON.stringify({ username, password });
+        console.log(body)
 
-        return fetch(`${HOST}/login`, { method: "POST", headers, body })
+        return await fetch(`${HOST}/login`, { method: "POST", headers, body })
             .then(response => this.handleResponse<Broker>(response));
     };
 
     private handleResponse = async <T>(response: Response): Promise<BrokerData<T> | null> => {
+        console.log(response)
         if (!response.ok) {
             return null;
         }

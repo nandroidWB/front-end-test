@@ -1,9 +1,10 @@
 // src/pages/RegisterPage.tsx
 import React, { useState } from "react";
 import { BrokerClient } from "../../client/http/Broker";
-import MailOutlineIcon from '@mui/icons-material/MailOutline'
+import MailIcon from '@mui/icons-material/Mail'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import isologotipo from '../../ui/assets/images/isologotipo.png'
 
 interface RegisterPageProps {
     navigateTo: (page: "login") => void;
@@ -45,6 +46,7 @@ export const Register: React.FC<RegisterPageProps> = ({ navigateTo }) => {
       try {
         const client = new BrokerClient();
         const response = await client.registerUser(formData.email, formData.contrasena);
+        console.log(response)
         if (response) {
             navigateTo("login");
         } else {
@@ -60,12 +62,9 @@ export const Register: React.FC<RegisterPageProps> = ({ navigateTo }) => {
     return (
       <div className="flex min-h-screen bg-cover bg-center bg-background">
         <div className="flex-1 flex items-center justify-end">
-          <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+          <div className="w-full min-h-screen max-w-md p-8 bg-white rounded-lg shadow-md">
             <div className="flex items-center justify-center mb-8">
-              <svg className="w-10 h-10 text-emerald-500 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-              <span className="text-2xl font-bold text-gray-800">Wbuild</span>
+              <img src={isologotipo} />
             </div>
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">Portal de Inversionistas</h2>
             <p className="text-center text-gray-600 mb-8">¡Te damos la bienvenida!</p>
@@ -115,7 +114,7 @@ export const Register: React.FC<RegisterPageProps> = ({ navigateTo }) => {
                   required
                 />
                 <label htmlFor="email" className="absolute text-sm text-gray-500 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3">Email</label>
-                <MailOutlineIcon className="absolute right-3 top-1/2 transform -translate-y-1/2" style={iconStyle} />
+                <MailIcon className="absolute right-3 top-1/2 transform -translate-y-1/2" style={iconStyle} />
               </div>
               <div className="relative">
                 <input
