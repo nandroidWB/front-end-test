@@ -182,25 +182,6 @@ const Catalog: React.FC = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar 
-        position="static" 
-        elevation={0}
-        sx={{ 
-          bgcolor: isMobile ? '#ffffff' : 'background.default',
-          boxShadow: isMobile ? '0px 0px 16px 0px rgba(0, 0, 0, 0.11)' : 'none',
-        }}
-      >
-        <Toolbar>
-          <AppBarContent />
-        </Toolbar>
-      </AppBar>
-      {isMobile && (
-        <Box sx={{ px: 2, py: 1.5, bgcolor: 'background.default' }}>
-          <Typography variant="h6" component="h1" sx={{ color: '#2B2964', fontWeight: 'bold' }}>
-            Catálogo
-          </Typography>
-        </Box>
-      )}
       <Drawer
         anchor="right"
         open={drawerOpen}

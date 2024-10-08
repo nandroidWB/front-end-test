@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Register } from "./components/Auth/Register";
 import { Login } from "./components/Auth/Login";
 import Catalog from "./components/Catalog/Catalog";
+import Dashboard from './components/Dashboard/Dashboard';
 import './App.css'
 
 const App: React.FC = () => {
-    const [page, setPage] = useState<"register" | "login" | "catalog">("register");
+    const [page, setPage] = useState<string>("register");
 
-    const navigateTo = (nextPage: "register" | "login" | "catalog") => {
+    const navigateTo = (nextPage: string) => {
         setPage(nextPage);
     };
 
@@ -16,7 +17,8 @@ const App: React.FC = () => {
         
             {page === "register" && <Register navigateTo={navigateTo} />}
             {page === "login" && <Login navigateTo={navigateTo} />}
-            {page === "catalog" && <Catalog />}
+            {page === "catalog" && <Dashboard children={<Catalog />} navigateTo={navigateTo}/>}
+            {page === "dashboard" && <Dashboard navigateTo={navigateTo}/>}
         
       </>
     );
