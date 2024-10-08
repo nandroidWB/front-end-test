@@ -35,56 +35,56 @@ export const typographyStyleCases = (): Record<TypographyStyle, SxProps> =>
     },
     headline2: {
       fontSize: "18px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 500,
     },
     subtitle1: {
       fontSize: "15px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 400,
       
     
     },
     subtitle2: {
       fontSize: "13px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 600,
       
     },
     body1: {
       fontSize: "13px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 400, 
       
     },
     body2: {
       fontSize: "12px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 400, 
       
     },
     item: {
       fontSize: "12px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 300, 
       
     },
     button: {
       fontSize: "14px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 400,
       // Generalmente vamos a querer que el color lo maneje el RoundedButton, caso contrario explicitarlo 
       //color: theme.palette.primary
     },
     caption: {
       fontSize: "10px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 400,
       
     },
     overline: {
       fontSize: "12px",
-      fontFamily: "Roboto",
+      fontFamily: "Inter",
       fontWeight: 400,
       textTransform: "uppercase", 
       

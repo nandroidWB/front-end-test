@@ -43,3 +43,8 @@ Requisitos:
 + Incluir un archivo README.md con instrucciones sobre cómo se realizaron los desafíos propuestos y cómo se ejecuta el cliente web.
 + Documentar cualquier suposición realizada y describir el enfoque utilizado para la implementación.
 
+## Consideraciones 
+
+- En la terminal dentro de la carpeta del repositorio, ejecutar npm install
+- Las pantallas van en orden secuencial, primero el usario se registra y luego se loguea, y accede al catalogo
+- Correo de usuario Válido: Hector.tazdevil@gmail.com
